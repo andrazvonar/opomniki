@@ -12,7 +12,6 @@ window.addEventListener('load', function() {
 			.addEventListener('click', izvediPrijavo);
 			
 	//dodaj opomnik
-	
 	var dodajOpomnik = function(event) {
 		var naziv_opomnika = document.querySelector("#naziv_opomnika").value;
 		var cas_opomnika = document.querySelector("#cas_opomnika").value;
@@ -20,7 +19,7 @@ window.addEventListener('load', function() {
 		document.querySelector("#cas_opomnika").value = "";
 		
 		document.querySelector("#opomniki").innerHTML += " \
-			<div class='opomnik'>\
+			<div class='opomnik senca rob'>\
 					<div class='naziv_opomnika'>" +naziv_opomnika+"</div>\
 					<div class='cas_opomnika'> Opomnik čez <span>" +cas_opomnika+"</span> sekund.</div>\
 			</div>"
@@ -36,7 +35,14 @@ window.addEventListener('load', function() {
 			var opomnik = opomniki[i];
 			var casovnik = opomnik.querySelector("span");
 			var cas = parseInt(casovnik.innerHTML);
-	
+			
+			if (cas == 0) {
+				var naziv_opomnika = opomnik.querySelector(".naziv_opomnika").innerHTML;
+				alert("Opomnik!\n\nZadolžitev:" + naziv_opomnika + " je potekla");
+				document.querySelector("#opomniki").removeChild(opomnik);
+			} else {
+				casovnik.innerHTML = cas - 1;
+			}
 			//TODO: 
 			// - če je čas enak 0, izpiši opozorilo "Opomnik!\n\nZadolžitev NAZIV_OPOMNIK je potekla!"
 			// - sicer zmanjšaj čas za 1 in nastavi novo vrednost v časovniku
